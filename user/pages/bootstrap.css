@@ -1,0 +1,54 @@
+html, body
+{
+	height: 100%;
+	background-color: #002f45 !important;
+	background-image: url(IMAGES/library.jpg);
+	background-size: contain;
+	color: #fff;
+}
+.global-container
+{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #000;
+}
+.login-form
+{
+	width: 340px;
+	height: 400px;
+	margin: 20px;
+	background: #fff !important;
+}
+.login-form, .registration-form{
+	border-radius: 10px !important;
+}
+input[type="number"], input[type="password"], select
+{
+	margin-bottom: 1%;
+}
+.card-title
+{
+	padding-top: 2%;
+}
+a
+{
+	text-decoration: none;
+	opacity: .8;
+}
+a: hover
+{
+	opacity: 1;
+}
+button
+{
+	margin-top: 10px;
+	background: #000 !important;
+	font-size: 1.05vw;
+}
+.signup
+{
+	text-align: center;
+	padding-top: 2%;
+}
