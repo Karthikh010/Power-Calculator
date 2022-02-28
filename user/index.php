@@ -32,7 +32,7 @@
           <a href="pages/bill.php" target="content"><span class="fa fa-user mr-3"></span> Bill Calculator</a>
         </li>
         <li>
-          <a href="pages/consumption.html" target="content"><span class="fa fa-sticky-note mr-3"></span> Consumption Calculator</a>
+          <a href="pages/consumption.php" target="content"><span class="fa fa-sticky-note mr-3"></span> Consumption Calculator</a>
         </li>
         <li>
           <a href="pages/energy.html" target="content"><span class="fa fa-sticky-note mr-3"></span> Energy Calculator</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2022 at 06:53 PM
+-- Generation Time: Feb 28, 2022 at 07:28 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -39,6 +39,36 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`ID`, `UName`, `Password`) VALUES
 (1, 'KSEB', 'kseb');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rev_tharif1`
+--
+
+CREATE TABLE `rev_tharif1` (
+  `ID` int(11) NOT NULL,
+  `BILLMIN` double NOT NULL,
+  `BILLMAX` double NOT NULL,
+  `CONSMIN` int(11) NOT NULL,
+  `CONSMAX` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rev_tharif1`
+--
+
+INSERT INTO `rev_tharif1` (`ID`, `BILLMIN`, `BILLMAX`, `CONSMIN`, `CONSMAX`) VALUES
+(1, 35, 215, 0, 50),
+(2, 215, 430, 50, 100),
+(3, 430, 710, 100, 150),
+(4, 710, 1070, 150, 200),
+(5, 1070, 1600, 200, 250),
+(6, 1600, 2160, 250, 300),
+(7, 2160, 2720, 300, 350),
+(8, 2720, 3215, 350, 400),
+(9, 3215, 4275, 400, 500),
+(10, 4275, 45000, 500, 5000);
 
 -- --------------------------------------------------------
 
@@ -275,6 +305,12 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `rev_tharif1`
+--
+ALTER TABLE `rev_tharif1`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `subsidy_tharif1`
 --
 ALTER TABLE `subsidy_tharif1`
@@ -331,6 +367,12 @@ ALTER TABLE `tharif9`
 --
 ALTER TABLE `login`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rev_tharif1`
+--
+ALTER TABLE `rev_tharif1`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tharif1`

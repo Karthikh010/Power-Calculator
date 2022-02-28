@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label class="label">Billinng Cycle</label>
+                            <label class="label">Billing Cycle</label>
                             <div class="p-t-10">
                             <label class="radio-container m-r-45"> 2 Months
                                 <input type="radio" checked="checked" name="bill_cycle" value="2">
