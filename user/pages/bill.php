@@ -39,45 +39,59 @@
             }
             if(s1.value == "3"){
                 var optionArray = ["|","1|Manufacturing Units","2|KWA Pumphouse","others|Othes"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "4"){
                 var optionArray = ["|","1|IT Enabled Services","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "5"){
                 var optionArray = ["|","1|Pumping / Dewatering","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "6"){
                 var optionArray = ["|","1|Livestock Farm","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "7"){
                 var optionArray = ["|","1|Educational Institutions","2|Libraries and Reading Rooms","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "8"){
                 var optionArray = ["|","1|KWA offices","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "9"){
                 var optionArray = ["|","1|Railways","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "10"){
                 var optionArray = ["|","1|Orphanages","2|Libraries and Reading Rooms","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "11"){
                 var optionArray = ["|","1|Gymnasium","2|Sports and Arts Club","3|Swimming Club","4|Offices of Political Parties","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "12"){
                 var optionArray = ["|","1|Construction","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "13"){
                 var optionArray = ["|","1|Private Hospitals","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "14"){
                 var optionArray = ["|","1|Commercial","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "15"){
                 var optionArray = ["|","1|Shops","others|Others"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "16"){
                 var optionArray = ["|","1|Cinema Theatres","2|Circus","3|Swimming Club","4|Gymnasium","5|Sports and Arts Club"];
+                document. getElementById('load_input'). style. display = 'block';
             }
             if(s1.value == "17"){
                 var optionArray = ["|","1|Display Lighting and Hoardings"];
@@ -91,7 +105,28 @@
                 s2.options.add(newOption);
             }
         }
+        function blah(){
+            ti=document.getElementById("tariff_id").value;
+            tp=document.getElementById("tariff_pur").value;
+            u=document.getElementById("units").value;
+            l=document.getElementById("load").value;
+            bc=document.querySelector('input[name="bill_cycle"]:checked').value;
+            p=document.querySelector('input[name="phase"]:checked').value;
+            var data = "send="+123+"&tariff_id="+ti+"&tariff_pur="+tp+"&bill_cycle="+bc+"&units="+u+"&phase="+p+"&load="+l;
+            var xhttp; 
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                      var return_data = this.responseText;
+                    console.log(return_data);
+                  document.getElementById("result").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "ajax.php?"+data, true);
+            xhttp.send();
+        }
     </script>
+
     <style>
         body{
             background: url('images/bg.jpg');
@@ -99,6 +134,17 @@
         }
         #bgImg{
             background: rgba(0,0,0,.5);
+        }
+        tr:hover {background-color: #4272d7;}
+        th {
+          background-color: #4272d7;
+          color: white;
+        }
+        th, td {
+          padding-top: 10px;
+          padding-bottom: 20px;
+          padding-left: 30px;
+          padding-right: 40px;
         }
     </style>
 </head>
@@ -109,11 +155,11 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Bill Calculator</h2>
-                    <form method="POST">
+                    <!-- <form method="POST"> -->
                         <div class="input-group">
                             <label class="label">Tariff</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="tariff_id" id="tariff_id" onchange="populate(this.id,'tariff_pur')">
+                                <select name="tariff_id" id="tariff_id"  onchange="populate(this.id,'tariff_pur')">
                                     <option disabled="disabled" selected="selected" >Choose option</option>
                                     <option value="1">LT-I</option>
                                     <option value="2">LT-II</option>
@@ -160,7 +206,7 @@
                         </div>
                         <div class="input-group">
                             <label class="label">Consumed Units</label>
-                            <input class="input--style-4" type="number" name="units">
+                            <input class="input--style-4" type="number" name="units" id="units">
                         </div>
                         <div class="input-group">
                             <label class="label">Phase</label>
@@ -177,20 +223,14 @@
                         </div>
                         <div class="input-group" id="load_input">
                             <label class="label">Connected Load (Watts)</label>
-                            <input class="input--style-4" type="number" name="load">
+                            <input class="input--style-4" type="number" name="load" id="load">
                         </div>
                         <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" name="submit" type="submit">Calculate</button>
+                            <button class="btn btn--radius-2 btn--blue" name="submit" type="button" onclick="blah()">Calculate</button>
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
-
-
-            
-        
-    
-
     <!-- Jquery JS-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <!-- Vendor JS-->
@@ -201,791 +241,16 @@
     <!-- Main JS-->
     <script src="js/global.js"></script>
 
-</body>
-
-</html>
-<?php
- $desc = "";
- $value = "";
- $conn=mysqli_connect("localhost","root","","tharif");
- if(!$conn)
-   {
-   	 echo'<script>alert("connection failed");</script>';
-   }
- if(isset($_POST['submit'])){
-     //POST data
-     $tariff = $_POST['tariff_id'];
-     $purpose = $_POST['tariff_pur'];
-     $billcycle = $_POST['bill_cycle'];
-     $units = $_POST['units'];
-     $phase = $_POST['phase'];
-     $load = $_POST['load'];
-     $value = 0;
-     $duty = 0;
-     $fixed=0;
-     $rent=0;
-     $gst=0;
-     $total=0;
-     
-    if($tariff == "1")
-    {
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif1 where CONSMIN < '$units' and CONSMAX >= '$units' ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    if($row['BPL']==1)
-                    {
-                        $value = $units * $row['ERATE'];
-                    }
-                    elseif($row['TELES']==1)
-                    {
-                        $value = ((($units - $row['CONSMIN']) * $row['ERATE'] ) + $row['TELEFIX'])*2;
-                        $duty = ($value/10);
-                        if($phase == 3){
-                            $fixed = $row['TFIX']*2;
-                            $rent =30;
-                            $gst = 5.4;
-                        }
-                        else{
-                            $fixed = $row['SFIX']*2;
-                            $rent =12;
-                            $gst = 2.16;
-                        }
-                        $total= $value+$duty+$fixed+$rent+$gst;
-                    }
-                    elseif($row['NONTELES']==1)
-                    {
-                        $value = $units*$row['ERATE']*2;
-                        $duty = ($value/10);
-                        if($phase == 3){
-                            $fixed = $row['TFIX']*2;
-                            $rent =30;
-                            $gst = 5.4;
-                        }
-                        else{
-                            $fixed = $row['SFIX']*2;
-                            $rent =12;
-                            $gst = 2.16;
-                        }
-                        $total= $value+$duty+$fixed+$rent+$gst;
-                    }
-                }
-            }
+    <style>
+        #result{
+                margin-top: 3em;
         }
-        else
-        {
-            $sql = "select * from tharif1 where CONSMIN < '$units' and CONSMAX >= '$units' ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    if($row['BPL']==1)
-                    {
-                        $value = $units * $row['ERATE'];
-                    }
-                    elseif($row['TELES']==1)
-                    {
-                        $value = ((($units - $row['CONSMIN']) * $row['ERATE'] ) + $row['TELEFIX']);
-                        $duty = ($value/10);
-                        if($phase == 3){
-                            $fixed = $row['TFIX'];
-                            $rent =15;
-                            $gst = 2.7;
-                        }
-                        else{
-                            $fixed = $row['SFIX'];
-                            $rent =6;
-                            $gst = 1.08;
-                        }
-                        $total= $value+$duty+$fixed+$rent+$gst;
-                    }
-                    elseif($row['NONTELES']==1)
-                    {
-                        $value = $units*$row['ERATE'];
-                        $duty = ($value/10);
-                        if($phase == 3){
-                            $fixed = $row['TFIX'];
-                            $rent =15;
-                            $gst = 2.7;
-                        }
-                        else{
-                            $fixed = $row['SFIX'];
-                            $rent =6;
-                            $gst = 1.08;
-                        }
-                        $total= $value+$duty+$fixed+$rent+$gst;
-                    }
-                }
-            }
-        }
-    }
-    elseif($tariff == "2")
-    {
-        $sql = "select * from tharif2";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                if($phase == 3){
-                    $value = $row['TFIX'];
-                }
-                else{
-                    $value = $row['SFIX'];
-                }
-            }
-        }
-    }
-    elseif($tariff == "3")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif4 where (LOADMIN <= '$load' and LOADMAX >= '$load') and SELTABLE = 1 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =(($load*$row['FIXED'])+$row['ADDFIXED']);
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "4")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif4 where (LOADMIN <= '$load' and LOADMAX >= '$load') and SELTABLE = 2 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =(($load*$row['FIXED'])+$row['ADDFIXED']);
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "5")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif5 where ID = '1' ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =$load*$row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "6")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif5 where ID = '2' ";
-        $result = mysqli_query($conn,$sql);
-        if($result)
-        {
-            while ($row = mysqli_fetch_assoc($result)) 
-            {
-                $fixed =$load*$row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "7")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif6 where (CONSMIN < '$units' and CONSMAX >= '$units') and SELTABLE = '1' ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =$load*$row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "8")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif6 where (CONSMIN < '$units' and CONSMAX >= '$units') and SELTABLE = 2 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =$load*$row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "9")
-    {
-        $load /= 1000;
-        $sql = "select * from tharif6 where (CONSMIN < '$units' and CONSMAX >= '$units') and SELTABLE = 3 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed =$load*$row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "10")
-    {
-        $sql = "select * from tharif6 where SELTABLE = 4 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $fixed = $row['FIXED'];
-                $value = ($units *$row['ERATE']);
-                $duty = ($value/10);
-                if($billcycle == 2){
-                    $fixed *=2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                }
-                else{
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                }
-                $total= $value+$duty+$fixed+$rent+$gst;
-            }
-        }
-    }
-    elseif($tariff == "11")
-    {
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 5 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX']*2;
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $fixed = $row['SFIX']*2;
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 5 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX'];
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $fixed = $row['SFIX'];
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }        
-    }
-    elseif($tariff == "12")
-    {
-        $load /= 1000;
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 6 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX']*$load*2;
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $fixed = $row['SFIX']*$load*2;
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 6 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX']*$load;
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $fixed = $row['SFIX']*$load;
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }
-    }
-    elseif($tariff == "13")
-    {
-        $load /= 1000;
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 7 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX']*$load*2;
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $fixed = $row['SFIX']*$load*2;
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif6 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 7 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX'];
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $fixed = $row['SFIX'];
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }
-    }
-    elseif($tariff == "14")
-    {
-		$load /= 1000;
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 1 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX']*$load*2;
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $fixed = $row['SFIX']*$load*2;
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 1 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    if($phase == 3){
-                        $fixed = $row['TFIX'];
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $fixed = $row['SFIX'];
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }
-    }
-    elseif($tariff == "15")
-    {
-        $load /= 1000;
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 2 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    $fixed = $row['FIXED']*2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 2 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    $fixed = $row['FIXED'];
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }
-    }
-    elseif($tariff == "16")
-    {
-        $load /= 1000;
-        if($billcycle == 2)
-        {
-            $units/=2;
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 3 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE']*2;
-                    $duty = ($value/10);
-                    $fixed = $row['FIXED']*2;
-                    if($phase == 3){
-                        $rent =30;
-                        $gst = 5.4;
-                    }
-                    else{
-                        $rent =12;
-                        $gst = 2.16;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;   
-                }
-            }
-        }
-        else
-        {
-            $sql = "select * from tharif7 where (CONSMIN <= '$units' and CONSMAX >= '$units') and SELTABLE = 3 ";
-            $result = mysqli_query($conn,$sql);
-            if($result)
-            {
-                while ($row = mysqli_fetch_assoc($result)) 
-                {
-                    $value = $units*$row['ERATE'];
-                    $duty = ($value/10);
-                    $fixed = $row['FIXED'];
-                    if($phase == 3){
-                        $rent =15;
-                        $gst = 2.7;
-                    }
-                    else{
-                        $rent =6;
-                        $gst = 1.08;
-                    }
-                    $total= $value+$duty+$fixed+$rent+$gst;  
-                }
-            }
-        }
-    }
-    elseif($tariff == "17")
-    {
-        $sql = "select * from tharif9 ";
-		$result = mysqli_query($conn,$sql);
-		if($result)
-		{
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-                $value = ($units *$row['ERATE'])+$row['FIXED'];
-            }
-        }
-    }
-    else
-    {
-        echo "error";
-    }
-
-?>
-    
-            <div class="card card-4">
-                <div class="card-body">
-    
-<?php
-     echo "<table class='table table-striped' border=1 style='width:100%;'><tr><th>Bill Details</th><th>Amount</th></tr>
-     <tr><th>Energy Charge</th><td>$value</td></tr>
-     <tr><th>Duty</th><td>$duty</td></tr>
-     <tr><th>Fixed Charge</th><td>$fixed</td></tr>
-     <tr><th>EMeter Rent</th><td>$rent</td></tr>
-     <tr><th>GST</th><td>$gst</td></tr>
-     <tr><th>Total Amount</th><td>$total</td></tr>
-     </table>";
- }
-        
-?>
+    </style>
+    <div class="card card-4" id="result">
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
 <!-- end document-->

@@ -38,15 +38,6 @@
 	            	<button type="submit" name="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
 	            </div>
 	            <div class="form-group d-md-flex">
-	            	<div class="w-50">
-	            		<label class="checkbox-wrap checkbox-primary">Remember Me
-									  <input type="checkbox" checked>
-									  <span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#">Forgot Password</a>
-								</div>
 	            </div>
 	          </form>
 	        </div>
@@ -68,6 +59,7 @@
 	  {
 		   echo'<script>alert("connection failed");</script>';
 	  }
+	  session_start();
 	if(isset($_POST['submit'])){
 		$UName=$_POST['UName'];
 		$password=$_POST['password'];
@@ -76,6 +68,7 @@
 			$row=mysqli_fetch_assoc($result);
 			$pass=$row['password'];
 			if($password == $pass ){
+				$_SESSION['log']="login";
 				header("location:../index/");
 			}
 			

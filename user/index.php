@@ -23,19 +23,19 @@
           <span class="sr-only">Toggle Menu</span>
         </button>
       </div>
-      <h1><a href="index.html" class="logo">POWER CALCULATOR</a></h1>
+      <h1><a  class="logo">POWER CALCULATOR</a></h1>
       <ul class="list-unstyled components mb-5">
         <li class="active">
-          <a href="#"><span class="fa fa-home mr-3"></span> Homepage</a>
+          <a href="pages/home.php" target="content"><span class="fa fa-home mr-3"></span> Homepage</a>
         </li>
         <li>
           <a href="pages/bill.php" target="content"><span class="fa fa-user mr-3"></span> Bill Calculator</a>
         </li>
         <li>
-          <a href="pages/consumption.php" target="content"><span class="fa fa-sticky-note mr-3"></span> Consumption Calculator</a>
+          <a href="pages/consumption.php" target="content"><span class="fa fa-user mr-3"></span> Consumption Calculator</a>
         </li>
         <li>
-          <a href="pages/energy.html" target="content"><span class="fa fa-sticky-note mr-3"></span> Energy Calculator</a>
+          <a href="pages/energy.html" target="content"><span class="fa fa-user mr-3"></span> Energy Calculator</a>
         </li>
 
       </ul>

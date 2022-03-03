@@ -89,13 +89,40 @@
                 s2.options.add(newOption);
             }
         }
+        function blah(){
+            ti=document.getElementById("tariff_id").value;
+            tp=document.getElementById("tariff_pur").value;
+            b=document.getElementById("bill").value;
+            l=document.getElementById("load").value;
+            bc=document.querySelector('input[name="bill_cycle"]:checked').value;
+            p=document.querySelector('input[name="phase"]:checked').value;
+            var data = "send="+123+"&tariff_id="+ti+"&tariff_pur="+tp+"&bill_cycle="+bc+"&bill="+b+"&phase="+p+"&load="+l;
+            var xhttp; 
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                      var return_data = this.responseText;
+                    console.log(return_data);
+                  document.getElementById("result").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "ajax_c.php?"+data, true);
+            xhttp.send();
+        }
     </script>
     <style>
         body{
             background: url('images/bg.jpg');
+            background-size: cover;
         }
         #bgImg{
             background: rgba(0,0,0,.5);
+        }
+        th, td {
+          padding-top: 10px;
+          padding-bottom: 20px;
+          padding-left: 30px;
+          padding-right: 40px;
         }
         </style>
 </head>
@@ -106,12 +133,12 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Consumption Calculator</h2>
-                    <form method="POST">
+                    <!-- <form method="POST"> -->
                         <div class="input-group">
                             <label class="label">Tariff</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject" id="tariff_id" onchange="populate(this.id,'tariff_pur')">
-                                    <option disabled="disabled" selected="selected" >Choose option</option>
+                                <select name="tariff_id" id="tariff_id" required onchange="populate(this.id,'tariff_pur')">
+                                    <option disabled="disabled" selected="selected" value="0" >Choose option</option>
                                     <option value="1">LT-I</option>
                                     <option value="2">LT-II</option>
                                     <option value="3">LT-IV (A)</option>
@@ -136,7 +163,7 @@
                         <div class="input-group">
                             <label class="label" >Purpose</label>
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="subject" id="tariff_pur">
+                                <select name="tariff_pur" id="tariff_pur">
                                     <option disabled="disabled" selected="selected">Choose option</option>
                                 </select>
                                 <div class="select-dropdown"></div>
@@ -157,7 +184,7 @@
                         </div>
                         <div class="input-group">
                             <label class="label">Bill Amount</label>
-                            <input class="input--style-4" type="number" name="bill">
+                            <input class="input--style-4" type="text" name="bill" id="bill">
                         </div>
                         <div class="input-group">
                             <label class="label">Phase</label>
@@ -174,89 +201,18 @@
                         </div>
                         <div class="input-group" id="load_input">
                             <label class="label">Connected Load (Watts)</label>
-                            <input class="input--style-4" type="number" name="load">
+                            <input class="input--style-4" type="number" name="load" id="load">
                         </div>
                         <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" name="submit" type="submit">Calculate</button>
+                            <button class="btn btn--radius-2 btn--blue" name="submit" type="button" onclick="blah()">Calculate</button>
                         </div>
-                    </form>
-                    <?php
-                        $conn=mysqli_connect("localhost","root","","tharif");
-                        if(!$conn)
-                        {
-                            echo'<script>alert("connection failed");</script>';
-                        }
-                        if(isset($_POST['submit'])){
-                            //POST data
-                            //$tariff = $_POST['tariff_id'];
-                            // $purpose = $_POST['tariff_pur'];
-                            $billcycle = $_POST['bill_cycle'];
-                            $bill = $_POST['bill'];
-                            $phase = $_POST['phase'];
-                            $load = $_POST['load'];
-                            $value = 0;
-                            $duty = 0;
-                            $fixed=0;
-                            $rent=0;
-                            $gst=0;
-                            $units=0;
-                            $tariff = "1";
-                             
-                            if($tariff == "1")
-                            {
-                                if($billcycle == 2)
-                                {
-                                    $bill /= 2;
-                                }
-                                $sql = "select * from rev_tharif1 where BILLMIN < '$bill' and BILLMAX >= '$bill' ";
-                                $result = mysqli_query($conn,$sql);
-                                if($result)
-                                {
-                                    while ($row = mysqli_fetch_assoc($result)) 
-                                    {
-                                        $consmin = $row['CONSMIN'];
-                                        $consmax = $row['CONSMAX'];
-                                        $sql1 = "select * from tharif1 where CONSMIN = '$consmin' and CONSMAX = '$consmax' ";
-                                        $result1 = mysqli_query($conn,$sql1);
-                                        if($result1)
-                                        {
-                                            while ($row1 = mysqli_fetch_assoc($result1)) 
-                                            {
-                                                if($phase == 3){
-                                                    $bill -= 17.7;
-                                                    $fixed = $row1['TFIX'];
-                                                }
-                                                else{
-                                                    $bill -=7.08;
-                                                    $fixed = $row1['SFIX'];
-                                                }
-                                                $bill -= $fixed;
-                                                $bill = ($bill*10)/11;
-                                                if($row1['TELES']==1){
-                                                    $bill -= $row1['TELEFIX'] ;   
-                                                }
-                                                $units = $bill/$row1['ERATE'];
-                                                if($row1['TELES']==1){
-                                                    $units += $row1['CONSMIN'] ;   
-                                                }
-                                            }   
-                                        }
-                                    }
-                                }
-                                if($billcycle == 2)
-                                {
-                                    $units *= 2;
-                                }
-                            }
-                            echo "<table class='table table-striped' border=1 style='width:100%;'><tr><th>Bill Amount</th><th>Approx Consumption</th></tr><tr><th>Units : </th><td>$units</td></tr></table>";
-                        }
-                        
-                    ?>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="card card-4" id="result">
+                </div>
     <!-- Jquery JS-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <!-- Vendor JS-->
